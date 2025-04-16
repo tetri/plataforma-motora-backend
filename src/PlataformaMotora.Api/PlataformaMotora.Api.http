@@ -1,0 +1,5 @@
+@PlataformaMotora.Api_HostAddress = http://localhost:5257
+
+Accept: application/json
+
+###
