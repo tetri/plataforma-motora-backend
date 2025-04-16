@@ -1,12 +1,31 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
 
-builder.Services.AddOpenApi();
+using PlataformaMotora.Infrastructure.Persistence;
 
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
+internal class Program
 {
-    app.MapOpenApi();
-}
+    private static void Main(string[] args)
+    {
+        DotNetEnv.Env.Load();
 
-app.Run();
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddOpenApi();
+
+        builder.Services.AddDbContext<AppDbContext>(options =>
+        {
+            var connectionString = Environment.GetEnvironmentVariable("SUPABASE_CONNECTION");
+            options.UseNpgsql(connectionString);
+        });
+
+
+        var app = builder.Build();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.MapOpenApi();
+        }
+
+        app.Run();
+    }
+}
