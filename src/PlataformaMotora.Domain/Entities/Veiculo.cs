@@ -1,11 +1,13 @@
-﻿namespace PlataformaMotora.Domain.Entities;
+﻿using MercosulPlateValidator;
+
+namespace PlataformaMotora.Domain.Entities;
 
 public partial class Veiculo
 {
     public Guid Id { get; private set; }
-    public string Placa { get; private set; }
-    public string Marca { get; private set; }
-    public string Modelo { get; private set; }
+    public string? Placa { get; private set; }
+    public string? Marca { get; private set; }
+    public string? Modelo { get; private set; }
     public int AnoFabricacao { get; private set; }
     public int AnoModelo { get; private set; }
 
@@ -33,7 +35,7 @@ public partial class Veiculo
         if (string.IsNullOrWhiteSpace(Placa))
             throw new ArgumentException("Placa é obrigatória");
 
-        if (!PlacaMercosul().IsMatch(Placa))
+        if (!MercosulPlate.ValidatePlate(Placa).IsValid)
             throw new ArgumentException("Placa inválida ou fora do padrão Mercosul/LatAm");
 
         if (string.IsNullOrWhiteSpace(Marca))
@@ -49,8 +51,5 @@ public partial class Veiculo
             throw new ArgumentException("Ano do modelo não pode ser menor que o ano de fabricação");
     }
 
-    private string NormalizePlaca(string placa) => placa.Trim().ToUpperInvariant();
-
-    [System.Text.RegularExpressions.GeneratedRegex(@"^[A-Z]{3}[0-9]{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$|^[A-Z]{2}[0-9]{3}[A-Z]{2}$|^[A-Z]{2}[0-9]{4}$|^[A-Z]{1}[A-Z]{2}[0-9]{4}$")]
-    private static partial System.Text.RegularExpressions.Regex PlacaMercosul();
+    private static string NormalizePlaca(string placa) => placa.Trim().ToUpperInvariant();
 }

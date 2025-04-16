@@ -27,10 +27,10 @@ namespace PlataformaMotora.Tests
         }
 
         [Fact]
-        public void CriarVeiculo_PlaceInvalida_DeveLancarExcecao()
+        public void CriarVeiculo_PlacaInvalida_DeveLancarExcecao()
         {
             // Arrange
-            var placaInvalida = "123ABC";
+            var placaInvalida = "PLACAINVALIDA";
 
             // Act & Assert
             var exception = Assert.Throws<ArgumentException>(() =>
