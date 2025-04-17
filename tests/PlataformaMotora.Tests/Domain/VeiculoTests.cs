@@ -1,6 +1,6 @@
 ﻿using PlataformaMotora.Domain.Entities;
 
-namespace PlataformaMotora.Tests
+namespace PlataformaMotora.Tests.Domain
 {
     public class VeiculoTests
     {
