@@ -1,6 +1,10 @@
+using Scalar.AspNetCore;
+
 using Microsoft.EntityFrameworkCore;
 
+using PlataformaMotora.Domain.Repositories;
 using PlataformaMotora.Infrastructure.Persistence;
+using PlataformaMotora.Infrastructure.Persistence.Repositories;
 
 internal class Program
 {
@@ -18,12 +22,22 @@ internal class Program
             options.UseNpgsql(connectionString);
         });
 
+        builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+
+        builder.Services.AddControllers();
 
         var app = builder.Build();
 
+        app.UseHttpsRedirection();
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.MapOpenApi();
+
         if (app.Environment.IsDevelopment())
         {
-            app.MapOpenApi();
+            app.MapScalarApiReference();
         }
 
         app.Run();
