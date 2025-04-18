@@ -48,15 +48,15 @@ namespace PlataformaMotora.Api.Controllers
             try
             {
                 var veiculo = Veiculo.Criar(
-                    dto.Placa,
-                    dto.Marca,
-                    dto.Modelo,
+                    dto.Placa!,
+                    dto.Marca!,
+                    dto.Modelo!,
                     dto.AnoFabricacao,
                     dto.AnoModelo,
                     usuarioId.Value
                 );
 
-                var existente = await _veiculoRepository.ObterPorPlacaAsync(veiculo.Placa);
+                var existente = await _veiculoRepository.ObterPorPlacaAsync(veiculo.Placa!);
                 if (existente != null)
                     return Conflict("Veículo com esta placa já existe.");
 

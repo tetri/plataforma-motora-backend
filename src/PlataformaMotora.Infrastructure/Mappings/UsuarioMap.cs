@@ -30,7 +30,5 @@ public class UsuarioMap : IEntityTypeConfiguration<Usuario>
 
         builder.Property(u => u.CriadoEm)
             .IsRequired();
-
-        builder.Property(v => v.CriadoEm).IsRequired();
     }
 }

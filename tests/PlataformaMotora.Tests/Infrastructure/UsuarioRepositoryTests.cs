@@ -10,7 +10,7 @@ namespace PlataformaMotora.Tests.Infrastructure;
 
 public class UsuarioRepositoryTests
 {
-    private AppDbContext CriarContexto()
+    private static AppDbContext CriarContexto()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())

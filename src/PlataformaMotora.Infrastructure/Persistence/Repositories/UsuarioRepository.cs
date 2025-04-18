@@ -5,13 +5,9 @@ using PlataformaMotora.Domain.Repositories;
 
 namespace PlataformaMotora.Infrastructure.Persistence.Repositories
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class UsuarioRepository(AppDbContext context) : IUsuarioRepository
     {
-        private readonly AppDbContext _context;
-        public UsuarioRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         public async Task<Usuario?> ObterPorEmailAsync(string email)
         {

@@ -6,25 +6,19 @@ using PlataformaMotora.Infrastructure.Persistence;
 
 namespace PlataformaMotora.Infrastructure.Services;
 
-public class SeedService
+public class SeedService(AppDbContext context, IConfiguration configuration)
 {
-    private readonly AppDbContext _context;
-    private readonly IConfiguration _configuration;
-
-    public SeedService(AppDbContext context, IConfiguration configuration)
-    {
-        _context = context;
-        _configuration = configuration;
-    }
+    private readonly AppDbContext _context = context;
+    private readonly IConfiguration _configuration = configuration;
 
     public async Task SeedAsync()
     {
         if (!await _context.Usuarios.AnyAsync())
         {
-            var email = _configuration["SYSTEMUSER_EMAIL"];
-            var senha = _configuration["SYSTEMUSER_PASSWORD"];
+            string? email = _configuration["SYSTEMUSER_EMAIL"];
+            string? senha = _configuration["SYSTEMUSER_PASSWORD"];
 
-            var usuario = Usuario.Criar("root", email, senha);
+            var usuario = Usuario.Criar("root", email!, senha!);
 
             _context.Usuarios.Add(usuario);
 

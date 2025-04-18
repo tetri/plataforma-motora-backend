@@ -43,12 +43,12 @@ namespace PlataformaMotora.Api.Controllers
             try
             {
                 var usuario = Usuario.Criar(
-                    dto.Nome,
-                    dto.Email,
-                    dto.Senha
+                    dto.Nome!,
+                    dto.Email!,
+                    dto.Senha!
                 );
 
-                var existente = await _usuarioRepository.ObterPorEmailAsync(usuario.Email);
+                var existente = await _usuarioRepository.ObterPorEmailAsync(usuario.Email!);
                 if (existente != null)
                     return Conflict("Usuário com este e-mail já existe.");
 
