@@ -2,7 +2,7 @@
 
 namespace PlataformaMotora.Domain.Entities;
 
-public partial class Veiculo
+public partial class Veiculo : Auditoria
 {
     public Guid Id { get; private set; }
     public string? Placa { get; private set; }
@@ -25,9 +25,11 @@ public partial class Veiculo
         Validar();
     }
 
-    public static Veiculo Criar(string placa, string marca, string modelo, int anoFabricacao, int anoModelo)
+    public static Veiculo Criar(string placa, string marca, string modelo, int anoFabricacao, int anoModelo, Guid usuarioId)
     {
-        return new Veiculo(placa, marca, modelo, anoFabricacao, anoModelo);
+        var veiculo = new Veiculo(placa, marca, modelo, anoFabricacao, anoModelo);
+        veiculo.MarcarComoCriado(usuarioId);
+        return veiculo;
     }
 
     private void Validar()

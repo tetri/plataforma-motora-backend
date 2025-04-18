@@ -8,7 +8,7 @@ using PlataformaMotora.Infrastructure.Persistence.Repositories;
 
 namespace PlataformaMotora.Tests.Infrastructure;
 
-public class VeiculoRepositoryTests
+public class UsuarioRepositoryTests
 {
     private AppDbContext CriarContexto()
     {
@@ -20,28 +20,28 @@ public class VeiculoRepositoryTests
     }
 
     [Fact]
-    public async Task Deve_Adicionar_E_Buscar_Veiculo()
+    public async Task Deve_Adicionar_E_Buscar_Usuario()
     {
         using var context = CriarContexto();
-        var repo = new VeiculoRepository(context);
+        var repo = new UsuarioRepository(context);
 
-        var veiculo = Veiculo.Criar("ABC1D23", "Fiat", "Argo", 2021, 2021, Guid.NewGuid());
+        var usuario = Usuario.Criar("jair", "jair@motora.com", "senhaSegura");
 
-        await repo.AdicionarAsync(veiculo);
+        await repo.AdicionarAsync(usuario);
 
-        var encontrado = await repo.ObterPorPlacaAsync("ABC1D23");
+        var encontrado = await repo.ObterPorEmailAsync("jair@motora.com");
 
         encontrado.Should().NotBeNull();
-        encontrado!.Modelo.Should().Be("Argo");
+        encontrado!.Email.Should().Be("jair@motora.com");
     }
 
     [Fact]
-    public async Task Deve_Retornar_Null_Para_Placa_Desconhecida()
+    public async Task Deve_Retornar_Null_Para_Email_Inexistente()
     {
         using var context = CriarContexto();
-        var repo = new VeiculoRepository(context);
+        var repo = new UsuarioRepository(context);
 
-        var resultado = await repo.ObterPorPlacaAsync("XYZ9999");
+        var resultado = await repo.ObterPorEmailAsync("joao@motora.com");
 
         resultado.Should().BeNull();
     }
