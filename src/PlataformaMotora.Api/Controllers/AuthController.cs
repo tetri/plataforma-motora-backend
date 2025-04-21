@@ -12,16 +12,10 @@ namespace PlataformaMotora.Api.Controllers
     /// </summary>
     [ApiController]
     [Route("auth")]
-    public class AuthController : ControllerBase
+    public class AuthController(IUsuarioRepository usuarioRepository, IJwtService jwtService) : ControllerBase
     {
-        private readonly IUsuarioRepository _usuarioRepository;
-        private readonly IJwtService _jwtService;
-
-        public AuthController(IUsuarioRepository usuarioRepository, IJwtService jwtService)
-        {
-            _usuarioRepository = usuarioRepository;
-            _jwtService = jwtService;
-        }
+        private readonly IUsuarioRepository _usuarioRepository = usuarioRepository;
+        private readonly IJwtService _jwtService = jwtService;
 
         /// <summary>
         /// Realiza o login do usuário e retorna um token JWT.

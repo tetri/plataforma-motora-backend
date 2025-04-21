@@ -10,25 +10,20 @@ using PlataformaMotora.Domain.Entities;
 
 namespace PlataformaMotora.Infrastructure.Services
 {
-    public class JwtService : IJwtService
+    public class JwtService(IConfiguration config) : IJwtService
     {
-        private readonly IConfiguration _config;
-
-        public JwtService(IConfiguration config)
-        {
-            _config = config;
-        }
+        private readonly IConfiguration _config = config;
 
         public string GerarToken(Usuario usuario)
         {
             var claims = new[]
             {
-            new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-            new Claim(ClaimTypes.Name, usuario.Nome),
-            new Claim(ClaimTypes.Email, usuario.Email)
-        };
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                new Claim(ClaimTypes.Name, usuario.Nome!),
+                new Claim(ClaimTypes.Email, usuario.Email!)
+            };
 
-            var chave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT_SECRET"]));
+            var chave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT_SECRET"] ?? "JWT secret"));
             var creds = new SigningCredentials(chave, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
