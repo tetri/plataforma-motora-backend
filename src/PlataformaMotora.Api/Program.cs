@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
+using PlataformaMotora.Application.Interfaces.Services;
 using PlataformaMotora.Domain.Repositories;
 using PlataformaMotora.Infrastructure.Persistence;
 using PlataformaMotora.Infrastructure.Persistence.Repositories;
@@ -41,6 +42,7 @@ builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddScoped<SeedService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddControllers();
 

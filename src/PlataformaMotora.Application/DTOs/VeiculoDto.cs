@@ -1,4 +1,4 @@
-﻿namespace PlataformaMotora.Api.Models
+﻿namespace PlataformaMotora.Application.DTOs
 {
     public record VeiculoDto
     {

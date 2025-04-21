@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using PlataformaMotora.Api.Models;
 using PlataformaMotora.API.Extensions;
+using PlataformaMotora.Application.DTOs;
 using PlataformaMotora.Domain.Entities;
 using PlataformaMotora.Domain.Repositories;
 

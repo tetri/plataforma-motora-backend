@@ -1,6 +1,4 @@
-﻿using PlataformaMotora.Domain.Constants;
-
-namespace PlataformaMotora.Domain.Entities;
+﻿namespace PlataformaMotora.Domain.Entities;
 
 public class Usuario
 {
