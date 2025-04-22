@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using PlataformaMotora.Application.DTOs.Requests;
 using PlataformaMotora.Application.Interfaces.Services;
@@ -10,6 +11,7 @@ namespace PlataformaMotora.Api.Controllers
     /// <summary>
     /// Controller para autenticação de usuários.
     /// </summary>
+    [AllowAnonymous]
     [ApiController]
     [Route("auth")]
     public class AuthController(IUsuarioRepository usuarioRepository, IJwtService jwtService) : ControllerBase
